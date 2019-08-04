@@ -19,6 +19,6 @@ before_install:
 
 script:
   - docker-compose -f docker-compose-travis.yaml up -d --build web
-  - docker-compose -f docker-compose-travis.yaml ps
+  - docker ps
   - docker-compose -f docker-compose-travis.yaml exec web ls
   - docker-compose -f docker-compose-travis.yaml exec web ./vendor/bin/phpunit
