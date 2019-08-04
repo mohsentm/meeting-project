@@ -3,9 +3,19 @@ language: php
 php:
   - 7.1
 
-before_script:
-  - composer self-update
-  - composer install --no-interaction
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
 
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - sudo docker-compose up -d
+
+before_script:
+  - sudo docker exec -ti meeting-web artisan migrtate
 script:
-  - vendor/bin/phpunit
+  - sudo docker exec -ti meeting-web vendor/bin/phpunit
