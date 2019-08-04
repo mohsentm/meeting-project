@@ -1,3 +1,8 @@
+language: php
+
+php:
+  - 7.1
+
 sudo: required
 
 services:
@@ -14,5 +19,4 @@ before_install:
 
 script:
   - docker-compose up --build web
-#  - docker exec -ti web artisan migrate
-  - docker exec -ti web vendor/bin/phpunit
+  - docker exec -ti meeting_web vendor/bin/phpunit
