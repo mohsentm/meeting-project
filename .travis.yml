@@ -8,7 +8,14 @@ dist: trusty
 services:
   - postgresql
 
+addons:
+  postgresql: 11
+  apt:
+    packages:
+      - postgresql-11-postgis-2.4
+
 before_script:
+  - psql -U postgres -c "create extension postgis"
   - psql -c 'create database meetingdb;' -U postgres
   - cp .env.travis .env
   - composer install
