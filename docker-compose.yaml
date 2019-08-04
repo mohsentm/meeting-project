@@ -9,9 +9,6 @@ services:
             - db
         volumes:
             - ./:/var/www/html
-            - .env.config:/var/www/html/.env
-        env_file:
-            - .env.config
     db:
         image: postgres:11
         env_file:
