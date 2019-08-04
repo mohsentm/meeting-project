@@ -19,6 +19,6 @@ before_install:
 
 before_script:
   - docker-compose -f docker-compose-travis.yaml up -d --build web
-  - docker-compose -f docker-compose-travis.yaml artisan migrate
+  - docker-compose -f docker-compose-travis.yaml exec web artisan migrate
 script:
   - docker-compose -f docker-compose-travis.yaml exec web ./vendor/bin/phpunit
