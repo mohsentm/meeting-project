@@ -13,6 +13,6 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - docker-compose build
+  - docker-compose up -d --build
   - docker exec -ti meeting-web artisan migrtate
   - docker exec -ti meeting-web vendor/bin/phpunit
