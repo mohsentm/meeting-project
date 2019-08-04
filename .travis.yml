@@ -3,8 +3,11 @@ language: php
 php:
   - 7.1
 
+dist: trusty
+
 services:
   - postgresql
+
 addons:
   postgresql: "11.2"
   apt:
