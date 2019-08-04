@@ -17,8 +17,7 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-script:
+before_script:
   - docker-compose -f docker-compose-travis.yaml up -d --build web
-  - docker ps
-  - docker exec meeting_web ls
-  - docker exec meeting_web ./vendor/bin/phpunit
+script:
+  - docker-compose -f docker-compose-travis.yaml exec web ./vendor/bin/phpunit
