@@ -12,7 +12,7 @@ addons:
   postgresql: 11
   apt:
     packages:
-      - postgresql-11-postgis-2.4
+      - postgresql-11-postgis-2.3
 
 before_script:
   - psql -U postgres -c "create extension postgis"
