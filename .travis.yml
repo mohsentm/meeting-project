@@ -10,7 +10,7 @@ services:
 
 before_script:
   - psql -c 'create database meetingdb;' -U postgres
-  - copy .env.config .env
+  - cp .env.config .env
   - composer install
   - php artisan key:generate
   - artisan migrate
