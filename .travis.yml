@@ -17,9 +17,11 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-before_script:
+install:
   - docker-compose -f docker-compose-travis.yaml up -d --build
 
-script:
+before_script:
   - docker-compose -f docker-compose-travis.yaml exec web artisan migrate
+
+script:
   - docker-compose -f docker-compose-travis.yaml exec web ./vendor/bin/phpunit
