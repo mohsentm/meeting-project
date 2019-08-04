@@ -21,4 +21,4 @@ script:
   - docker-compose -f docker-compose-travis.yaml up -d --build web
   - docker-compose -f docker-compose-travis.yaml ps
   - docker-compose -f docker-compose-travis.yaml exec web ls
-#  - docker-compose exec web ./vendor/bin/phpunit
+  - docker-compose -f docker-compose-travis.yaml exec web ./vendor/bin/phpunit
