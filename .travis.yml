@@ -17,6 +17,8 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-script:
+before_script:
   - docker-compose up --build web
+
+script:
   - docker exec -ti meeting_web vendor/bin/phpunit
