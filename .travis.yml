@@ -3,22 +3,17 @@ language: php
 php:
   - 7.1
 
-sudo: required
+dist: trusty
 
 services:
-  - docker
-
-env:
-  - DOCKER_COMPOSE_VERSION=1.24.1
-
-before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  - postgresql
 
 before_script:
-  - docker-compose -f docker-compose-travis.yaml up -d --build web
-  - docker-compose -f docker-compose-travis.yaml exec web artisan migrate
+  - psql -c 'create database meetingdb;' -U postgres
+  - cp .env.travis .env
+  - composer install
+  - php artisan key:generate
+  - php artisan migrate
+
 script:
-  - docker-compose -f docker-compose-travis.yaml exec web ./vendor/bin/phpunit
+  - vendor/bin/phpunit
