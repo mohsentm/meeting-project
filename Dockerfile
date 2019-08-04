@@ -7,8 +7,8 @@ LABEL description="meeting project 1.0.0"
 ENV INSTALL_DIR /var/www/html
 ENV COMPOSER_HOME /var/www/.composer/
 
-ADD ./docker/php.ini /etc/php7/php.ini
-ADD ./docker/nginx.conf /etc/nginx/conf.d/default.conf
+ADD docker/web/php.ini /etc/php7/php.ini
+ADD docker/web/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN apk add --update \
    ffmpeg \
