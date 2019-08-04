@@ -19,4 +19,6 @@ before_install:
 
 script:
   - docker-compose up -d --build web
+  - docker-compose ps
+  - docker-compose exec web ls
   - docker-compose exec web vendor/bin/phpunit
