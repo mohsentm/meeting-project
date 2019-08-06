@@ -11,13 +11,12 @@ services:
         volumes:
             - ./:/var/www/html
     db:
-        image: mdillon/postgis:11-alpine
+        image: mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password
+        ports:
+            - "3306:3306"
         env_file:
             - .env.config
-    adminer:
-        image: adminer
-        ports:
-            - 8080:8080
     elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.3.0
         environment:
