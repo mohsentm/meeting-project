@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\User;
 use Faker\Generator as Faker;
+use App\Repositories\EventRepository;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 
@@ -21,7 +22,7 @@ $factory->define(Event::class, static function (Faker $faker) {
         'description' => $faker->paragraphs($faker->numberBetween(2, 5), true),
         'start_time' => $startDate,
         'end_time' => $endDate,
-        'image' => $faker->image(storage_path('app/public/events'), 400, 300, 'technics', false),
+        'image' => $faker->image(EventRepository::storagePath(), 400, 300, 'technics', false),
         'capacity' => $faker->numberBetween(10, 99999),
         'price' => $faker->numberBetween(0, 99999),
         'location' => new Point($faker->latitude, $faker->longitude),

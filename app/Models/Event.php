@@ -58,4 +58,9 @@ class Event extends Model
     {
         return $this->hasMany(EventUsers::class);
     }
+
+    public function categories()
+    {
+        return $this->hasManyThrough(Category::class, EventCategories::class, 'event_id', 'id','id', 'event_id');
+    }
 }

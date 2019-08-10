@@ -2,26 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\EventRequest;
+use App\Services\EventService;
+use\Illuminate\Http\JsonResponse;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $eventService;
+
+    public function __construct(EventService $eventServices)
     {
+        $this->eventService = $eventServices;
+    }
+
+    /**
+     * @param EventRequest $eventRequest
+     * @return JsonResponse
+     */
+    public function index(EventRequest $eventRequest): JsonResponse
+    {
+        return Response()->json($this->eventService->index($eventRequest->all()));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  EventRequest $eventRequest
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(EventRequest $eventRequest): JsonResponse
     {
         //
     }
@@ -30,21 +39,22 @@ class EventController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        //
+        return Response()->json($this->eventService->show($id));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EventRequest $eventRequest
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(EventRequest $eventRequest, $id): JsonResponse
     {
         //
     }
@@ -53,10 +63,10 @@ class EventController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        //
+
     }
 }
