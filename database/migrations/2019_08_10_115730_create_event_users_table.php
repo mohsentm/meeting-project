@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventsTable extends Migration
+class CreateEventUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,22 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('event_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
-            $table->string('image')->nullable();
-            $table->integer('capacity')->unsigned()->nullable();
-            $table->integer('price')->unsigned()->default(0);
-            $table->point('location')->nullable();
-            $table->enum('status',['ENABLE','FINISHED','PENDING'])->default('PENDING');
+            $table->bigInteger('event_id')->unsigned()->nullable();
+            $table->enum('status',['PENDING', 'ACTIVATED', 'CANCELED'])->default('ACTIVATED');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
+
+            $table->foreign('event_id')
+                ->references('id')
+                ->on('events')
                 ->onDelete('set null')
                 ->onUpdate('cascade');
         });
@@ -43,6 +41,6 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('event_users');
     }
 }
