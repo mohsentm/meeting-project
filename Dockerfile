@@ -17,6 +17,8 @@ RUN apk add --update \
    php7-pdo_pgsql \
    php7-exif;
 
+RUN apk add php7-xdebug --repository http://dl-3.alpinelinux.org/alpine/edge/testing/
+
 RUN chsh -s /bin/bash www-data
 
 ADD ./ $INSTALL_DIR
